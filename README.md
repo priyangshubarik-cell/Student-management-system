@@ -30,6 +30,9 @@ The system supports adding, viewing, searching, updating, and deleting student d
 gcc student.c -o student
 ```
 ## 📸 Output Preview
+Add Student :-
 ![Add Student Output](Output1.png)
+View Student :-
 ![View Student Output](Output2.png)
+Delete Student :-
 ![Delete Student Output](Output3.png)
