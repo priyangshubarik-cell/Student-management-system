@@ -1,102 +1,171 @@
 #include <stdio.h>
-#include <math.h>
+#include <string.h>
 
-float add(float a, float b);
-float subtract(float a, float b);
-float multiply(float a, float b);
-float divide(float a, float b);
-int modulus(int a, int b);
-float power(float a, float b);
+struct Student {
+    char id[20];
+    char name[50];
+    float marks;
+};
+
+struct Student students[100];
+int count = 0;
+
+void addStudent() {
+    printf("\nEnter Student ID: ");
+    scanf("%s", students[count].id);
+
+    while(getchar() != '\n');
+
+    printf("Enter Name: ");
+    scanf("%[^\n]", students[count].name);
+
+    printf("Enter Marks: ");
+    scanf("%f", &students[count].marks);
+
+    while(getchar() != '\n');
+
+    count++;
+    printf("Student added successfully.\n");
+}
+
+void viewStudents() {
+    if(count == 0) {
+        printf("\nNo students found.\n");
+        return;
+    }
+
+    printf("\n===== Student List =====\n");
+    for(int i = 0; i < count; i++) {
+        printf("%d. ID: %s | Name: %s | Marks: %.2f\n",
+               i+1,
+               students[i].id,
+               students[i].name,
+               students[i].marks);
+    }
+}
+
+void searchStudent() {
+    char id[20];
+
+    printf("\nEnter Student ID to search: ");
+    scanf("%s", id);
+
+    for(int i = 0; i < count; i++) {
+        if(strcmp(students[i].id, id) == 0) {
+            printf("Found: ID: %s | Name: %s | Marks: %.2f\n",
+                   students[i].id,
+                   students[i].name,
+                   students[i].marks);
+            return;
+        }
+    }
+
+    printf("Student not found.\n");
+}
+
+void deleteStudent() {
+    char id[20];
+    int found = 0;
+
+    printf("\nEnter Student ID to delete: ");
+    scanf("%s", id);
+
+    for(int i = 0; i < count; i++) {
+        if(strcmp(students[i].id, id) == 0) {
+            found = 1;
+
+            for(int j = i; j < count - 1; j++) {
+                students[j] = students[j + 1];
+            }
+
+            count--;
+            printf("Student deleted successfully.\n");
+            break;
+        }
+    }
+
+    if(!found) {
+        printf("Student not found.\n");
+    }
+}
+
+void updateStudent() {
+    char id[20];
+    int found = 0;
+
+    printf("\nEnter Student ID to update: ");
+    scanf("%s", id);
+
+    while(getchar() != '\n');
+
+    for(int i = 0; i < count; i++) {
+        if(strcmp(students[i].id, id) == 0) {
+            found = 1;
+
+            printf("Enter new name: ");
+            scanf("%[^\n]", students[i].name);
+
+            printf("Enter new marks: ");
+            scanf("%f", &students[i].marks);
+
+            while(getchar() != '\n');
+
+            printf("Student updated successfully.\n");
+            break;
+        }
+    }
+
+    if(!found) {
+        printf("Student not found.\n");
+    }
+}
 
 int main() {
-    float num1, num2;
     int choice;
-    char again;
 
     do {
+        printf("1. Add Student\n");
+        printf("2. View Students\n");
+        printf("3. Search Student\n");
+        printf("4. Delete Student\n");
+        printf("5. Update Student\n");
+        printf("6. Exit\n");
 
-        printf("Enter first number: ");
-        scanf("%f", &num1);
-
-        printf("Enter second number: ");
-        scanf("%f", &num2);
-
-        printf("\nChoose operation:\n");
-        printf("1. Addition (+)\n");
-        printf("2. Subtraction (-)\n");
-        printf("3. Multiplication (*)\n");
-        printf("4. Division (/)\n");
-        printf("5. Modulus (%%)\n");
-        printf("6. Power (^)\n");
-
-        printf("Enter your choice (1-6): ");
+        printf("Enter your choice: ");
         scanf("%d", &choice);
 
-        printf("\n-------------------------------------\n");
+        while(getchar() != '\n');
 
         switch(choice) {
             case 1:
-                printf("Result = %.2f\n", add(num1, num2));
+                addStudent();
                 break;
 
             case 2:
-                printf("Result = %.2f\n", subtract(num1, num2));
+                viewStudents();
                 break;
 
             case 3:
-                printf("Result = %.2f\n", multiply(num1, num2));
+                searchStudent();
                 break;
 
             case 4:
-                if(num2 != 0)
-                    printf("Result = %.2f\n", divide(num1, num2));
-                else
-                    printf("❌ Error! Division by zero.\n");
+                deleteStudent();
                 break;
 
             case 5:
-                printf("Result = %d\n", modulus((int)num1, (int)num2));
+                updateStudent();
                 break;
 
             case 6:
-                printf("Result = %.2f\n", power(num1, num2));
+                printf("Exiting...\n");
                 break;
 
             default:
-                printf("❌ Invalid choice!\n");
+                printf("Invalid choice.\n");
         }
 
-        printf("-------------------------------------\n");
-        printf("Do you want to continue? (y/n): ");
-        scanf(" %c", &again);
-
-    } while(again == 'y' || again == 'Y');
-
-    printf("\n👋 Thank you for using the calculator!\n");
+    } while(choice != 6);
 
     return 0;
-}
-
-float add(float a, float b) {
-    return a + b;
-}
-
-float subtract(float a, float b) {
-    return a - b;
-}
-
-float multiply(float a, float b) {
-    return a * b;
-}
-
-float divide(float a, float b) {
-    return a / b;
-}
-
-int modulus(int a, int b) {
-    return a % b;
-}
-
-float power(float a, float b) {
-    return pow(a, b);
 }
