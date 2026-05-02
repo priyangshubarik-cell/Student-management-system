@@ -30,6 +30,6 @@ The system supports adding, viewing, searching, updating, and deleting student d
 gcc student.c -o student
 ```
 ## 📸 Output Preview
-![Student management system Output](output 1.png)
-![Student management system Output](output 2.png)
-![Student management system Output](output 3.png)
+![Add Student Output](output1.png)
+![View Student Output](output2.png)
+![Delete Student Output](output3.png)
