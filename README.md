@@ -32,9 +32,9 @@ gcc student.c -o student
 ## 📸 Output Preview
 - Add Student :-
 ![Add Student Output](Output1.png)
-- View Student :-
+- Search Student :-
 
-![View Student Output](Output2.png)
+![Search Student Output](Output2.png)
 - Delete Student :-
 
 ![Delete Student Output](Output3.png)
